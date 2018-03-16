@@ -19,7 +19,7 @@ function start(model_changed) {
         return
     }
     
-    child_process = spawn(mgrok_path, ['-log=stdout', `-config=${__dirname}/mgrok.yaml`, 'start', 'test1'])
+    child_process = spawn(mgrok_path, ['-log=stdout', `-config=${__dirname}/mgrok.yaml`, 'start', 'test'])
     child_process.stdout.on('data', function (data) {
         console.log(data.toString());
         if (model_changed) {
