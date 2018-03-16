@@ -1,3 +1,4 @@
+
 const { isArray } = 'util';
 
 var exec = require('child_process').exec;
@@ -6,7 +7,19 @@ var spawn = require('child_process').spawn;
 
 let child_process
 function start(model_changed) {
-    child_process = spawn('mgrok.exe', ['-log=stdout', 'start', 'test'])
+    let mgrok_path = "";
+    if (global.process.platform == "darwin" && process.arch == 'x64') {
+        mgrok_path = 'mgrok/darwin_amd64/mgrok'
+    }
+    else if (global.process.platform == "win32" && process.arch == 'x64') {
+        mgrok_path = 'mgrok/windows_amd64/mgrok'
+    }
+
+    if (!mgrok_path) {
+        return
+    }
+    
+    child_process = spawn(mgrok_path, ['-log=stdout', `-config=${__dirname}/mgrok.yaml`, 'start', 'test1'])
     child_process.stdout.on('data', function (data) {
         console.log(data.toString());
         if (model_changed) {
