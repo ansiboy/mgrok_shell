@@ -1,0 +1,6 @@
+server_addr: t0.mgrok.cn:4443
+tunnels:
+    test:
+        proto:
+            http: 127.0.0.1:80
+    
