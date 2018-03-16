@@ -33,8 +33,6 @@ window.onmouseup = (event) => {
     x = null
     y = null
 }
-
-
 window.onmousemove = (event) => {
     if (!capture) {
         return
@@ -52,7 +50,13 @@ window.onmousemove = (event) => {
     x = event.screenX
     y = event.screenY
 }
-
+window.onkeydown = (event) => {
+    // 按下 CTRL + C 退出
+    cKey = 67;
+    if (event.ctrlKey && event.keyCode == cKey) {
+        window.close()
+    }
+}
 //============================================================
 // MGROK 
 

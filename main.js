@@ -67,7 +67,7 @@ app.on('activate', function () {
  * @param {Electron.BrowserWindow} win 
  */
 function createTray(win) {
-  let tray = new Tray("content/image/20180316120341.png")
+  let tray = new Tray("content/image/app_icon.png")
 
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -76,6 +76,7 @@ function createTray(win) {
 
       }
     },
+    { type: 'separator' },
     {
       label: 'Show', type: 'normal', icon: electron.nativeImage.createEmpty(),
       click() {
