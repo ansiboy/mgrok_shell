@@ -114,12 +114,15 @@ function createTray(win) {
       else
         win.show();
     })
-    app.on('continue-activity',function(){
+    app.on('continue-activity', function () {
       debugger;
     })
-    app.on("browser-window-focus",function(){
+    app.on("browser-window-focus", function () {
       //debugger;
-      
+
+    })
+    win.on('close', function () {
+      app.dock.hide()
     })
   }
   else {
