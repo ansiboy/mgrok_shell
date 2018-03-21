@@ -1,11 +1,9 @@
 const { remote } = require('electron')
-
-
-
 let tbody = document.getElementById('modleInfo')
 let close_button = document.getElementById('closeButton')
 let minus_button = document.getElementById('minusButton')
 let title_bar = document.getElementById('titleBar')
+let setting_button = document.getElementById('settingButton')
 
 let main_win = remote.BrowserWindow.getAllWindows()[0]
 close_button.onclick = (event) => {
@@ -16,7 +14,9 @@ minus_button.onclick = (event) => {
     main_win.hide()
     event.preventDefault()
 }
-
+setting_button.onclick = function () {
+    ui.showDialog(document.getElementById('configDialog'))
+}
 //============================================================
 // 实现窗口移动
 let x, y
@@ -97,6 +97,7 @@ function output(tbody, model) {
     is_outputing = false
 
 }
+
 
 
 
