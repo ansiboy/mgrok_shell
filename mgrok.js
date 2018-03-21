@@ -1,4 +1,3 @@
-
 const { isArray } = 'util';
 
 var exec = require('child_process').exec;
@@ -18,8 +17,8 @@ function start(model_changed) {
     if (!mgrok_path) {
         return
     }
-    
-    child_process = spawn(mgrok_path, ['-log=stdout', `-config=${__dirname}/mgrok.yaml`, 'start', 'test1'])
+
+    child_process = spawn(mgrok_path, ['-log=stdout', `-config=${__dirname}/mgrok.yaml`, 'start', 'test'])
     child_process.stdout.on('data', function (data) {
         console.log(data.toString());
         if (model_changed) {
@@ -37,6 +36,11 @@ function start(model_changed) {
     child_process.on('close', function (code) {
         console.log('child process exited with code ' + code);
     });
+
+    child_process.on('error', function (err) {
+        console.error(err);
+    })
+
     return child_process;
 }
 
@@ -57,17 +61,20 @@ function fetch_model(text) {
     let obj;
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i]
-        var items = line.split('|')
-            .filter(o => o.trim())
-
-        items.forEach(o => o.trim())
-
-        if (items.length == 2) {
-            if (obj == null) {
-                obj = []
+        let tag = '[METRICS]'
+        let tagIndex = line.indexOf(tag)
+        if (tagIndex >= 0) {
+            let str = line.substr(tagIndex + tag.length)
+            try {
+                obj = JSON.parse(str)
             }
-
-            obj.push(items)
+            catch (exc) {
+                console.log(exc)
+                debugger
+                console.log(line)
+                console.log(str)
+            }
+            break;
         }
     }
 
