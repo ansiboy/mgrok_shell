@@ -9,22 +9,54 @@
 </head>
 
 <body>
-  <div id="titleBar" class="titleBar">
-    <div id="closeButton" class="button pull-right">
-      <i class="glyphicon glyphicon-remove"></i>
+  <ul id="titleBar" class="nav nav-tabs">
+    <li role="presentation" class="active">
+      <a href="#panelHome">Home</a>
+    </li>
+    <li role="presentation">
+      <a href="#panelTunnels">Tunnels</a>
+    </li>
+    <li role="presentation">
+      <a href="#panelSettings">Settings</a>
+    </li>
+    <li class="pull-right">
+      <div id="closeButton" class="button pull-right">
+        <i class="glyphicon glyphicon-remove"></i>
+      </div>
+      <div id="minusButton" class="button pull-right">
+        <i class="glyphicon glyphicon-minus"></i>
+      </div>
+    </li>
+  </ul>
+
+  <div id="panels">
+    <div id="panelHome" class="container">
+      <table>
+        <tbody id="modleInfo">
+
+        </tbody>
+      </table>
     </div>
-    <div id="minusButton" class="button pull-right">
-      <i class="glyphicon glyphicon-minus"></i>
+    <div id="panelTunnels" style="display:none" class="container">
+      <div id="content">
+        <textarea></textarea>
+      </div>
+      <div class="navbar-fixed-bottom">
+        <button class="btn btn-primary btn-block">Save</button>
+      </div>
     </div>
-    <div id="settingButton" class="button pull-right">
-      <i class="glyphicon glyphicon-cog"></i>
+    <div id="panelSettings" style="display:none" class="container">
+      <form>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox">Start up (Software will auto start up after computer boot)
+          </label>
+        </div>
+      </form>
     </div>
   </div>
-  <table>
-    <tbody id="modleInfo">
 
-    </tbody>
-  </table>
+
   <div id="configDialog" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">

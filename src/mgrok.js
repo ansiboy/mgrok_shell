@@ -1,95 +1,92 @@
-const { isArray } = 'util';
-const path = require('path')
-
-var exec = require('child_process').exec;
-var spawn = require('child_process').spawn;
-
-
-let child_process
-function start(model_changed) {
-    let mgrok_path = "";
-    if (global.process.platform == "darwin" && process.arch == 'x64') {
-        mgrok_path = path.join(__dirname, '../mgrok/darwin_amd64/mgrok')
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var path = require("path");
+var fs = require("fs");
+var child_process_1 = require("child_process");
+var Mgrok = /** @class */ (function () {
+    function Mgrok(modelChanged) {
+        this.modelChanged = modelChanged;
     }
-    else if (global.process.platform == "win32" && process.arch == 'x64') {
-        mgrok_path = path.join(__dirname, '../mgrok/windows_amd64/mgrok')
-    }
-
-    if (!mgrok_path) {
-        return
-    }
-    // child_process = spawn(mgrok_path, ['-log=stdout', `-config=${__dirname}/mgrok.yaml`, 'start', 'test'])
-    child_process = spawn(mgrok_path, ['-log=stdout', '80'])
-    child_process.stdout.on('data', function (data) {
-        console.log(data.toString());
-        if (model_changed) {
-            let obj = fetch_model(data.toString())
-            if (obj != null && model_changed != null) {
-                model_changed(obj)
-            }
+    Mgrok.prototype.start = function () {
+        var _this = this;
+        var mgrok_path = path.join(__dirname, "../bin/mgrok");
+        if (global.process.platform == "win32" && process.arch == 'x64') {
+            mgrok_path = mgrok_path + '.exe';
         }
-    });
-
-    child_process.stderr.on('data', function (data) {
-        console.log(data.toString());
-    });
-
-    child_process.on('close', function (code) {
-        console.log('child process exited with code ' + code);
-    });
-
-    child_process.on('error', function (err) {
-        console.error(err);
-    })
-
-    return child_process;
-}
-
-function close() {
-    if (child_process == null)
-        return
-
-    child_process.kill();
-}
-
+        if (!fs.existsSync(mgrok_path)) {
+            return;
+        }
+        // child_process = spawn(mgrok_path, ['-log=stdout', `-config=${__dirname}/mgrok.yaml`, 'start', 'test'])
+        this.child_process = child_process_1.spawn(mgrok_path, ['-log=stdout', '80']);
+        this.child_process.stdout.on('data', function (data) {
+            console.log(data.toString());
+            if (_this.modelChanged) {
+                var obj = fetch_model(data.toString());
+                if (obj != null && _this.modelChanged != null) {
+                    _this.modelChanged(obj);
+                }
+            }
+        });
+        this.child_process.stderr.on('data', function (data) {
+            console.log(data.toString());
+        });
+        this.child_process.on('close', function (code) {
+            console.log('child process exited with code ' + code);
+        });
+        this.child_process.on('error', function (err) {
+            console.error(err);
+        });
+    };
+    Mgrok.prototype.close = function () {
+        if (this.child_process == null)
+            return;
+        this.child_process.kill();
+    };
+    return Mgrok;
+}());
 /**
  * 将输出的 MODEL 信息转换为对象
- * @param {string} text 
+ * @param {string} text
  */
 function fetch_model(text) {
-    let lines = text.split('\n').filter(o => o.trim())
-
-    let obj;
-    for (let i = 0; i < lines.length; i++) {
-        let line = lines[i]
-        let tag = '[METRICS]'
-        let tagIndex = line.indexOf(tag)
+    var lines = text.split('\n').filter(function (o) { return o.trim(); });
+    var obj;
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var tag = '[METRICS]';
+        var tagIndex = line.indexOf(tag);
         if (tagIndex >= 0) {
-            let str = line.substr(tagIndex + tag.length)
+            var str = line.substr(tagIndex + tag.length);
             try {
-                obj = JSON.parse(str)
+                obj = JSON.parse(str);
             }
             catch (exc) {
-                console.log(exc)
-                debugger
-                console.log(line)
-                console.log(str)
+                console.log(exc);
+                debugger;
+                console.log(line);
+                console.log(str);
             }
             break;
         }
     }
-
-    return obj
+    return obj;
 }
-
-function clearModel() {
-    let names = Object.getOwnPropertyNames(model)
-    for (let i = 0; i < names.length; i++) {
-        delete model[name]
-    }
+var instance;
+function start(modelChanged) {
+    instance = new Mgrok(modelChanged);
+    instance.start();
 }
-
-module.exports = {
-    start,
-    close
+exports.start = start;
+function close() {
+    if (instance == null)
+        return;
+    instance.close();
 }
+exports.close = close;
+function restart() {
+    if (instance == null)
+        return;
+    instance.close();
+    instance.start();
+}
+exports.restart = restart;
