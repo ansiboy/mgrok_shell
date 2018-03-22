@@ -33,6 +33,9 @@ window.onmouseup = (event) => {
     x = null
     y = null
 }
+
+let deltaX;
+let deltaY;
 window.onmousemove = (event) => {
     if (!capture) {
         return
@@ -52,10 +55,10 @@ window.onmousemove = (event) => {
 }
 window.onkeydown = (event) => {
     // 按下 CTRL + C 退出
-    cKey = 67;
-    if (event.ctrlKey && event.keyCode == cKey) {
-        window.close()
-    }
+    // const cKey = 67;
+    // if (event.ctrlKey && event.keyCode == cKey) {
+    //     window.close()
+    // }
 }
 //============================================================
 // MGROK 
@@ -68,7 +71,7 @@ main_win.on('close', function () {
     mgrok.close()
 })
 
-is_outputing = false;
+var is_outputing = false;
 /**
  * @param {HTMLTableSectionElement} tbody
  * @param {Array} model

@@ -1,25 +1,65 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
-  "main": "main.js",
+  "name": "mgrok_shell",
+  "productName": "mgrok_shell",
+  "version": "1.4.0",
+  "description": "Mgrok shell",
+  "main": "src/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint src --color"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "electron": "~1.6.2"
+  "keywords": [],
+  "author": "maishu",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm"
+      },
+      "electronWinstallerConfig": {
+        "name": "my_new_app"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "mynewapp"
+      }
+    }
   },
   "dependencies": {
-    "ngrok": "^3.0.0"
+    "electron-compile": "^6.4.2",
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^5.1.1",
+    "electron-prebuilt-compile": "1.8.4",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.7.0"
   }
 }

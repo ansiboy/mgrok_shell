@@ -90,9 +90,9 @@ function createTray(win) {
     },
   ])
 
-  // if (process.platform == 'win32') {
-  // let icon = electron.nativeImage.createEmpty()
-  let icon = electron.nativeImage.createFromPath("content/image/app_icon.png")
+
+  let image_path = path.join(__dirname, "content/image/app_icon.png")
+  let icon = electron.nativeImage.createFromPath(image_path)
   icon = icon.resize({ width: 16, height: 16 })
   let tray = new Tray(icon)
   tray.setToolTip('This is my application.')
@@ -107,7 +107,7 @@ function createTray(win) {
 
   if (process.platform == 'darwin') {
     app.dock.setMenu(contextMenu)
-    app.dock.setIcon("content/image/app_icon.png")
+    app.dock.setIcon(image_path)
     app.on('activate', function (event, hasVisibleWindows) {
       if (hasVisibleWindows)
         win.hide()

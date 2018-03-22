@@ -7,7 +7,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "electron",
-            "program": "${workspaceRoot}/main.js"
+            "program": "${workspaceRoot}/src/main.js"
         }
     ]
 }

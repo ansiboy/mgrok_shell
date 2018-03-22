@@ -1,6 +1,7 @@
-server_addr: t0.mgrok.cn:4443
+server_addr: t.mgrok.cn:4443
 tunnels:
     test:
+        hostname: maishu.alinq.cn
         proto:
             http: 127.0.0.1:80
     
