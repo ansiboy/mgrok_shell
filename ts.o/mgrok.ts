@@ -3,7 +3,7 @@ import * as fs from 'fs'
 import { spawn, ChildProcess } from 'child_process'
 
 class Mgrok {
-    private modelChanged: Function
+    private modelChanged: (model: Array<string[]>) => void
     private child_process: ChildProcess
     constructor(modelChanged) {
         this.modelChanged = modelChanged
@@ -54,7 +54,7 @@ class Mgrok {
  * 将输出的 MODEL 信息转换为对象
  * @param {string} text 
  */
-function fetch_model(text) {
+function fetch_model(text): Array<string[]> {
     let lines = text.split('\n').filter(o => o.trim())
 
     let obj;
@@ -69,7 +69,6 @@ function fetch_model(text) {
             }
             catch (exc) {
                 console.log(exc)
-                debugger
                 console.log(line)
                 console.log(str)
             }

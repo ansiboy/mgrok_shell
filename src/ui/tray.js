@@ -1,39 +1,39 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var path = require("path");
-var electron_1 = require("electron");
-var mgrok = require("./../mgrok");
+const path = require("path");
+const electron_1 = require("electron");
+const mgrok = require("./../mgrok");
 function createTray(win) {
-    var contextMenu = electron_1.Menu.buildFromTemplate([
+    const contextMenu = electron_1.Menu.buildFromTemplate([
         {
             label: 'Options', type: 'normal', icon: electron_1.nativeImage.createEmpty(),
-            click: function () {
+            click() {
             }
         },
         { type: 'separator' },
         {
             label: 'Show', type: 'normal', icon: electron_1.nativeImage.createEmpty(),
-            click: function () {
+            click() {
                 win.show();
             }
         },
         {
             label: 'Restart', type: 'normal', icon: electron_1.nativeImage.createEmpty(),
-            click: function () {
+            click() {
                 mgrok.restart();
             }
         },
         {
             label: 'Exits', type: 'normal', icon: electron_1.nativeImage.createEmpty(),
-            click: function () {
+            click() {
                 win.close();
             }
         },
     ]);
-    var image_path = path.join(__dirname, "content/image/app_icon.png");
-    var icon = electron_1.nativeImage.createFromPath(image_path);
+    let image_path = path.join(__dirname, "content/image/app_icon.png");
+    let icon = electron_1.nativeImage.createFromPath(image_path);
     icon = icon.resize({ width: 16, height: 16 });
-    var tray = new electron_1.Tray(icon);
+    let tray = new electron_1.Tray(icon);
     tray.setToolTip('This is my application.');
     tray.on('click', function () {
         if (win.isVisible()) {
@@ -43,7 +43,7 @@ function createTray(win) {
             win.show();
         }
     });
-    win.on('close', function () { return tray.destroy(); });
+    win.on('close', () => tray.destroy());
     if (process.platform == 'darwin') {
         electron_1.app.dock.setMenu(contextMenu);
         electron_1.app.dock.setIcon(image_path);
@@ -54,10 +54,8 @@ function createTray(win) {
                 win.show();
         });
         electron_1.app.on('continue-activity', function () {
-            debugger;
         });
         electron_1.app.on("browser-window-focus", function () {
-            //debugger;
         });
         win.on('close', function () {
             electron_1.app.dock.hide();

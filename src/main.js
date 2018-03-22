@@ -1,14 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var electron_1 = require("electron");
-var path = require("path");
-var url = require("url");
-var tray_1 = require("ui/tray");
-// const mgrok = require('./mgrok')
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-debugger;
-var mainWindow;
+const electron_1 = require("electron");
+const path = require("path");
+const url = require("url");
+const tray_1 = require("./ui/tray");
+let mainWindow;
 function createWindow() {
     // Create the browser window.
     mainWindow = new electron_1.BrowserWindow({

@@ -4,13 +4,8 @@ import * as electron from 'electron'
 import * as path from 'path'
 import * as  url from 'url'
 import * as  mgrok from './mgrok'
-import { createTray } from 'ui/tray'
+import { createTray } from './ui/tray'
 
-// const mgrok = require('./mgrok')
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-debugger
 let mainWindow: Electron.BrowserWindow
 
 function createWindow() {

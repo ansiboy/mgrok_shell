@@ -57,10 +57,8 @@ export function createTray(win: Electron.BrowserWindow) {
                 win.show();
         })
         app.on('continue-activity', function () {
-            debugger;
         })
         app.on("browser-window-focus", function () {
-            //debugger;
 
         })
         win.on('close', function () {
