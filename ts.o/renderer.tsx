@@ -51,8 +51,8 @@ ReactDOM.render(
 
 //============================================================
 // 实现窗口移动
-let x, y
-let capture
+let x: number, y: number;
+let capture: boolean;
 title_bar.onmousedown = (event) => {
     console.log(`onmousedown ${event.x} ${event.y}`)
     if (event.x > 720 && event.x < 110) {
@@ -64,6 +64,13 @@ window.onmouseup = (event) => {
     capture = false
     x = null
     y = null
+}
+window.onkeydown = (event) => {
+    // 按下 CTRL + C 退出
+    let F12 = 123;
+    if (event.keyCode == F12) {
+        main_win.webContents.openDevTools();
+    }
 }
 
 let deltaX;
@@ -84,13 +91,6 @@ window.onmousemove = (event) => {
 
     x = event.screenX
     y = event.screenY
-}
-window.onkeydown = (event) => {
-    // 按下 CTRL + C 退出
-    // const cKey = 67;
-    // if (event.ctrlKey && event.keyCode == cKey) {
-    //     window.close()
-    // }
 }
 
 

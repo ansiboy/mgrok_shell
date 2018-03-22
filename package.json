@@ -32,7 +32,7 @@
         "packageManager": "npm"
       },
       "electronWinstallerConfig": {
-        "name": "my_new_app"
+        "name": "mgrok_shell"
       },
       "electronInstallerDebian": {},
       "electronInstallerRedhat": {},

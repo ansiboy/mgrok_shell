@@ -3,10 +3,12 @@ import * as fs from 'fs'
 import { spawn, ChildProcess } from 'child_process'
 
 class Mgrok {
-    private modelChanged: (model: Array<string[]>) => void
+    modelChanged: (model: Array<string[]>) => void;
+    logChanged: (msg: string) => void;
+
     private child_process: ChildProcess
-    constructor(modelChanged) {
-        this.modelChanged = modelChanged
+    constructor() {
+        // this.modelChanged = modelChanged
     }
     start() {
         let mgrok_path = path.join(__dirname, "../bin/mgrok");
@@ -21,12 +23,7 @@ class Mgrok {
         this.child_process = spawn(mgrok_path, ['-log=stdout', '80'])
         this.child_process.stdout.on('data', (data) => {
             console.log(data.toString());
-            if (this.modelChanged) {
-                let obj = fetch_model(data.toString())
-                if (obj != null && this.modelChanged != null) {
-                    this.modelChanged(obj)
-                }
-            }
+            this.parseOutputData(data.toString());
         });
 
         this.child_process.stderr.on('data', (data) => {
@@ -47,56 +44,66 @@ class Mgrok {
 
         this.child_process.kill();
     }
-}
+    /**
+     * 将输出的 MODEL 信息转换为对象
+     * @param {string} text 
+     */
+    parseOutputData(text) {
+        let lines = text.split('\n').filter(o => o.trim())
 
-
-/**
- * 将输出的 MODEL 信息转换为对象
- * @param {string} text 
- */
-function fetch_model(text): Array<string[]> {
-    let lines = text.split('\n').filter(o => o.trim())
-
-    let obj;
-    for (let i = 0; i < lines.length; i++) {
-        let line = lines[i]
-        let tag = '[METRICS]'
-        let tagIndex = line.indexOf(tag)
-        if (tagIndex >= 0) {
-            let str = line.substr(tagIndex + tag.length)
-            try {
-                obj = JSON.parse(str)
+        let obj;
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i]
+            let tag = '[METRICS]'
+            let tagIndex = line.indexOf(tag)
+            if (tagIndex >= 0) {
+                let str = line.substr(tagIndex + tag.length)
+                try {
+                    obj = JSON.parse(str)
+                    if (this.modelChanged) {
+                        this.modelChanged(obj)
+                    }
+                }
+                catch (exc) {
+                    console.log(exc)
+                    console.log(line)
+                    console.log(str)
+                }
+                continue;
             }
-            catch (exc) {
-                console.log(exc)
-                console.log(line)
-                console.log(str)
+
+            if (this.logChanged != null) {
+                this.logChanged(line);
             }
-            break;
         }
+
+
     }
-
-    return obj
 }
 
 
-var instance: Mgrok;
-export function start(modelChanged) {
-    instance = new Mgrok(modelChanged)
-    instance.start()
-}
 
-export function close() {
-    if (instance == null)
-        return
 
-    instance.close()
-}
+let instance = new Mgrok();
+export default instance;
 
-export function restart() {
-    if (instance == null)
-        return
+// var instance: Mgrok;
+// export function start(modelChanged) {
+//     instance = new Mgrok()
+//     instance.start()
+// }
 
-    instance.close()
-    instance.start()
-}
+// export function close() {
+//     if (instance == null)
+//         return
+
+//     instance.close()
+// }
+
+// export function restart() {
+//     if (instance == null)
+//         return
+
+//     instance.close()
+//     instance.start()
+// }

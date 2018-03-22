@@ -1,29 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = require("react");
-const mgrok = require("./../mgrok");
+const mgrok_1 = require("./../mgrok");
+const logView_1 = require("./logView");
 class HomePanel extends React.Component {
     constructor(props) {
         super(props);
         this.state = { model: [] };
     }
     componentDidMount() {
-        mgrok.start((model) => {
-            // output(this.tbody, model)
+        mgrok_1.default.modelChanged = (model) => {
             this.state.model = model;
             this.setState(this.state);
-        });
+        };
+        mgrok_1.default.start();
         this.props.win.on('close', () => {
-            mgrok.close();
+            mgrok_1.default.close();
         });
     }
     render() {
         let { model } = this.state;
         return (React.createElement("div", { id: "panelHome", className: "container", ref: (e) => this.tbody = e || this.tbody },
             React.createElement("table", null,
-                React.createElement("tbody", { id: "modleInfo" }, model.map((o, i) => React.createElement("tr", { key: i },
+                React.createElement("tbody", { id: "modleInfo" }, model.filter(o => o[0] != 'mgrok').map((o, i) => React.createElement("tr", { key: i },
                     React.createElement("td", null, o[0]),
-                    React.createElement("td", null, o[1])))))));
+                    React.createElement("td", null, o[1]))))),
+            React.createElement(logView_1.LogView, null)));
     }
 }
 exports.HomePanel = HomePanel;

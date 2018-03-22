@@ -1,5 +1,6 @@
 import * as React from 'react';
-import * as  mgrok from './../mgrok';
+import mgrok from './../mgrok';
+import { LogView } from './logView';
 
 interface State {
     model: Array<string[]>
@@ -16,11 +17,11 @@ export class HomePanel extends React.Component<Props, State>{
     }
 
     componentDidMount() {
-        mgrok.start((model) => {
-            // output(this.tbody, model)
+        mgrok.modelChanged = (model) => {
             this.state.model = model;
             this.setState(this.state);
-        })
+        }
+        mgrok.start()
         this.props.win.on('close', () => {
             mgrok.close()
         })
@@ -31,7 +32,7 @@ export class HomePanel extends React.Component<Props, State>{
             <div id="panelHome" className="container" ref={(e) => this.tbody = e as any || this.tbody}>
                 <table>
                     <tbody id="modleInfo">
-                        {model.map((o, i) =>
+                        {model.filter(o => o[0] != 'mgrok').map((o, i) =>
                             <tr key={i}>
                                 <td>{o[0]}</td>
                                 <td>{o[1]}</td>
@@ -39,6 +40,7 @@ export class HomePanel extends React.Component<Props, State>{
                         )}
                     </tbody>
                 </table>
+                <LogView />
             </div>
         );
     }

@@ -56,6 +56,13 @@ window.onmouseup = (event) => {
     x = null;
     y = null;
 };
+window.onkeydown = (event) => {
+    // 按下 CTRL + C 退出
+    let F12 = 123;
+    if (event.keyCode == F12) {
+        main_win.webContents.openDevTools();
+    }
+};
 let deltaX;
 let deltaY;
 window.onmousemove = (event) => {
@@ -72,11 +79,4 @@ window.onmousemove = (event) => {
     }
     x = event.screenX;
     y = event.screenY;
-};
-window.onkeydown = (event) => {
-    // 按下 CTRL + C 退出
-    // const cKey = 67;
-    // if (event.ctrlKey && event.keyCode == cKey) {
-    //     window.close()
-    // }
 };
