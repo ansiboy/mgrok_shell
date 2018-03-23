@@ -28,7 +28,7 @@ function createWindow() {
     slashes: true
   }))
 
-  createTray(mainWindow)
+  createTray(__dirname, mainWindow)
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time

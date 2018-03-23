@@ -36,6 +36,10 @@ class Mgrok {
             return;
         this.child_process.kill();
     }
+    restart() {
+        this.close();
+        this.start();
+    }
     /**
      * 将输出的 MODEL 信息转换为对象
      * @param {string} text

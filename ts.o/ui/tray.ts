@@ -1,8 +1,8 @@
 import * as path from 'path';
 import { Menu, Tray, nativeImage, app } from 'electron';
-import * as mgrok from './../mgrok';
+import mgrok from './../mgrok';
 
-export function createTray(win: Electron.BrowserWindow) {
+export function createTray(mainPath: string, win: Electron.BrowserWindow) {
     const contextMenu = Menu.buildFromTemplate([
         {
             label: 'Options', type: 'normal', icon: nativeImage.createEmpty(),
@@ -32,7 +32,7 @@ export function createTray(win: Electron.BrowserWindow) {
     ])
 
 
-    let image_path = path.join(__dirname, "content/image/app_icon.png")
+    let image_path = path.join(mainPath, "content/image/app_icon.png")
     let icon = nativeImage.createFromPath(image_path)
     icon = (icon as any).resize({ width: 16, height: 16 })
     let tray = new Tray(icon)

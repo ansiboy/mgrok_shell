@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
 const electron_1 = require("electron");
-const mgrok = require("./../mgrok");
-function createTray(win) {
+const mgrok_1 = require("./../mgrok");
+function createTray(mainPath, win) {
     const contextMenu = electron_1.Menu.buildFromTemplate([
         {
             label: 'Options', type: 'normal', icon: electron_1.nativeImage.createEmpty(),
@@ -20,7 +20,7 @@ function createTray(win) {
         {
             label: 'Restart', type: 'normal', icon: electron_1.nativeImage.createEmpty(),
             click() {
-                mgrok.restart();
+                mgrok_1.default.restart();
             }
         },
         {
@@ -30,7 +30,7 @@ function createTray(win) {
             }
         },
     ]);
-    let image_path = path.join(__dirname, "content/image/app_icon.png");
+    let image_path = path.join(mainPath, "content/image/app_icon.png");
     let icon = electron_1.nativeImage.createFromPath(image_path);
     icon = icon.resize({ width: 16, height: 16 });
     let tray = new electron_1.Tray(icon);
