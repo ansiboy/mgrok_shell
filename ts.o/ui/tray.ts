@@ -4,12 +4,6 @@ import mgrok from './../mgrok';
 
 export function createTray(mainPath: string, win: Electron.BrowserWindow) {
     const contextMenu = Menu.buildFromTemplate([
-        {
-            label: 'Options', type: 'normal', icon: nativeImage.createEmpty(),
-            click() {
-
-            }
-        },
         { type: 'separator' },
         {
             label: 'Show', type: 'normal', icon: nativeImage.createEmpty(),
