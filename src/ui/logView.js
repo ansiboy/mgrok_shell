@@ -16,7 +16,7 @@ class LogView extends React.Component {
     render() {
         let { logs } = this.state;
         return (React.createElement("div", { className: "log navbar-fixed-bottom" },
-            React.createElement("ul", { className: "list-unstyled" }, logs.map(o => React.createElement("li", null, o)))));
+            React.createElement("ul", { className: "list-unstyled" }, logs.map((o, i) => React.createElement("li", { key: i }, o)))));
     }
 }
 exports.LogView = LogView;

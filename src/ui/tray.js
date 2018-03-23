@@ -34,7 +34,7 @@ function createTray(mainPath, win) {
     let icon = electron_1.nativeImage.createFromPath(image_path);
     icon = icon.resize({ width: 16, height: 16 });
     let tray = new electron_1.Tray(icon);
-    tray.setToolTip('This is my application.');
+    tray.setToolTip('This is mgrok shell.');
     tray.on('click', function () {
         if (win.isVisible()) {
             win.hide();

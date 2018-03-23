@@ -23,8 +23,8 @@ export class LogView extends React.Component<any, State>{
         return (
             <div className="log navbar-fixed-bottom">
                 <ul className="list-unstyled">
-                    {logs.map(o =>
-                        <li>{o}</li>
+                    {logs.map((o, i) =>
+                        <li key={i}>{o}</li>
                     )}
                 </ul>
             </div>
