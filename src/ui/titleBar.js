@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const React = require("react");
+const strings_1 = require("./../strings");
 class TitleBar extends React.Component {
     componentDidMount() {
         // let tbody = document.getElementById('modleInfo')
@@ -19,11 +20,11 @@ class TitleBar extends React.Component {
     render() {
         return (React.createElement("ul", { id: "titleBar", className: "nav nav-tabs", ref: e => this.element = e || this.element },
             React.createElement("li", { key: 10, role: "presentation", className: "active" },
-                React.createElement("a", { href: "#panelHome" }, "Home")),
+                React.createElement("a", { href: "#panelHome" }, strings_1.default.Home)),
             React.createElement("li", { key: 20, role: "presentation" },
-                React.createElement("a", { href: "#panelTunnels" }, "Tunnels")),
+                React.createElement("a", { href: "#panelTunnels" }, strings_1.default.Tunnels)),
             React.createElement("li", { key: 30, role: "presentation" },
-                React.createElement("a", { href: "#panelSettings" }, "Settings")),
+                React.createElement("a", { href: "#panelSettings" }, strings_1.default.Settings)),
             React.createElement("li", { key: 40, className: "pull-right" },
                 React.createElement("div", { id: "closeButton", className: "button pull-right" },
                     React.createElement("i", { className: "glyphicon glyphicon-remove" })),

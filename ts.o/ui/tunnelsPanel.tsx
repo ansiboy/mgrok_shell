@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as fs from 'fs';
 import * as path from 'path';
 import { remote } from 'electron'
+import strings from './../strings'
 
 interface State {
     text: string;
@@ -56,9 +57,9 @@ export class TunnelsPanel extends React.Component<Props, State> {
                     <button className="btn btn-primary btn-block"
                         ref={(e: HTMLButtonElement) => {
                             if (!e) return;
-                            e.onclick = ui.buttonOnClick(() => this.save(), { toast: 'Save success' });
+                            e.onclick = ui.buttonOnClick(() => this.save(), { toast: strings.SaveSuccess });
 
-                        }}>Save</button>
+                        }}>{strings.Save}</button>
                 </div>
             </div>
         );

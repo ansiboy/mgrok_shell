@@ -4,6 +4,7 @@ const React = require("react");
 const fs = require("fs");
 const path = require("path");
 const electron_1 = require("electron");
+const strings_1 = require("./../strings");
 class TunnelsPanel extends React.Component {
     constructor(props) {
         super(props);
@@ -40,8 +41,8 @@ class TunnelsPanel extends React.Component {
                 React.createElement("button", { className: "btn btn-primary btn-block", ref: (e) => {
                         if (!e)
                             return;
-                        e.onclick = ui.buttonOnClick(() => this.save(), { toast: 'Save success' });
-                    } }, "Save"))));
+                        e.onclick = ui.buttonOnClick(() => this.save(), { toast: strings_1.default.SaveSuccess });
+                    } }, strings_1.default.Save))));
     }
 }
 exports.TunnelsPanel = TunnelsPanel;

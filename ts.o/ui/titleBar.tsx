@@ -1,4 +1,5 @@
 import * as React from 'react';
+import strings from './../strings';
 
 interface Props extends React.Props<any> {
     win: Electron.BrowserWindow
@@ -24,13 +25,13 @@ export class TitleBar extends React.Component<Props, any>{
         return (
             <ul id="titleBar" className="nav nav-tabs" ref={e => this.element = e as any || this.element}>
                 <li key={10} role="presentation" className="active">
-                    <a href="#panelHome">Home</a>
+                    <a href="#panelHome">{strings.Home}</a>
                 </li>
                 <li key={20} role="presentation">
-                    <a href="#panelTunnels">Tunnels</a>
+                    <a href="#panelTunnels">{strings.Tunnels}</a>
                 </li>
                 <li key={30} role="presentation">
-                    <a href="#panelSettings">Settings</a>
+                    <a href="#panelSettings">{strings.Settings}</a>
                 </li>
                 <li key={40} className="pull-right">
                     <div id="closeButton" className="button pull-right">
