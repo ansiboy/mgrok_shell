@@ -3,14 +3,17 @@ import strings from './../strings'
 import * as regedit from 'regedit';
 import { remote } from 'electron';
 
-interface State extends React.Props<any> {
+interface State {
     startUp: boolean,
     startMini: boolean,
 }
 
+interface Props extends React.Props<any> {
+}
+
 let bootSetting = startOnBoot()
 let WIN_REGISTRY_KEY = "mgrok_shell"
-export class PanelSettings extends React.Component<{}, State>{
+export class PanelSettings extends React.Component<Props, State>{
     exePath: string;
 
     constructor(props) {
@@ -40,7 +43,7 @@ export class PanelSettings extends React.Component<{}, State>{
         else {
             bootSetting.disableAutoStart(WIN_REGISTRY_KEY)
         }
-        
+
         this.state.startUp = startUp;
         this.setState(this.state);
     }

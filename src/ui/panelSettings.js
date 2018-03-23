@@ -3,16 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = require("react");
 const strings_1 = require("./../strings");
 const electron_1 = require("electron");
+let bootSetting = startOnBoot();
+let WIN_REGISTRY_KEY = "mgrok_shell";
 class PanelSettings extends React.Component {
     constructor(props) {
         super(props);
         this.state = { startUp: false, startMini: false };
+        this.exePath = electron_1.remote.app.getPath("exe");
     }
     componentDidMount() {
-        var s = startOnBoot();
-        s.getAutoStartValue("mgrok_shell", (result) => {
+        bootSetting.getAutoStartValue(WIN_REGISTRY_KEY, (result) => {
             if (!result)
                 return;
+            if (result != this.exePath) {
+                bootSetting.enableAutoStart(WIN_REGISTRY_KEY, this.exePath);
+            }
             this.state.startUp = true;
             this.setState(this.state);
         });
@@ -21,14 +26,13 @@ class PanelSettings extends React.Component {
         let startUp = !this.state.startUp;
         if (startUp) {
             if (process.platform == "win32") {
-                var exePath = electron_1.remote.app.getPath("exe");
-                var s = startOnBoot();
-                s.enableAutoStart("mgrok_shell", exePath, function (error, result) {
-                    debugger;
-                });
+                bootSetting.enableAutoStart(WIN_REGISTRY_KEY, this.exePath);
             }
         }
-        this.state.startUp = !this.state.startUp;
+        else {
+            bootSetting.disableAutoStart(WIN_REGISTRY_KEY);
+        }
+        this.state.startUp = startUp;
         this.setState(this.state);
     }
     startMini() {

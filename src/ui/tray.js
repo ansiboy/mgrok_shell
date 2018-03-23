@@ -5,11 +5,6 @@ const electron_1 = require("electron");
 const mgrok_1 = require("./../mgrok");
 function createTray(mainPath, win) {
     const contextMenu = electron_1.Menu.buildFromTemplate([
-        {
-            label: 'Options', type: 'normal', icon: electron_1.nativeImage.createEmpty(),
-            click() {
-            }
-        },
         { type: 'separator' },
         {
             label: 'Show', type: 'normal', icon: electron_1.nativeImage.createEmpty(),

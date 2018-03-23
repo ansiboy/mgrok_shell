@@ -7,10 +7,8 @@ interface Props extends React.Props<any> {
 export class TitleBar extends React.Component<Props, any>{
     element: HTMLElement;
     componentDidMount() {
-        // let tbody = document.getElementById('modleInfo')
         let close_button = document.getElementById('closeButton')
         let minus_button = document.getElementById('minusButton')
-        // let title_bar = document.getElementById('titleBar')
 
         close_button.onclick = (event) => {
             this.props.win.close()

@@ -4,10 +4,8 @@ const React = require("react");
 const strings_1 = require("./../strings");
 class TitleBar extends React.Component {
     componentDidMount() {
-        // let tbody = document.getElementById('modleInfo')
         let close_button = document.getElementById('closeButton');
         let minus_button = document.getElementById('minusButton');
-        // let title_bar = document.getElementById('titleBar')
         close_button.onclick = (event) => {
             this.props.win.close();
             event.preventDefault();

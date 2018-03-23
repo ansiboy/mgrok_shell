@@ -81,7 +81,7 @@ export class MainPage extends React.Component<{ win: Electron.BrowserWindow, mai
         return [
             <TitleBar win={main_win} ref={e => this.titleBar = e || this.titleBar} />,
             <div id="panels" ref={e => this.panelsContainer = e as HTMLElement || this.panelsContainer}>
-                <HomePanel key={'home'} win={main_win} />
+                <HomePanel key='home' win={main_win} />
                 <TunnelsPanel key="tunnels" mainPath={this.props.mainPath} />
                 <PanelSettings key="settings" />
             </div>
